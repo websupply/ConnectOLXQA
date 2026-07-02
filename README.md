@@ -2,7 +2,7 @@
 
 Acompanhe os testes automatizados da API em tempo real:
 
-👉 https://kamillaqa.github.io/ConnectOLXQA/
+👉 https://websupply.github.io/ConnectOLXQA/
 
 ---
 
