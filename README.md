@@ -1,36 +1,20 @@
-# Dashboard de Qualidade - OLX
+## 📊 Dashboard de Qualidade
 
-Este repositório executa testes automatizados da collection Postman **[QA] Testes - OLX** com Newman e publica um dashboard no GitHub Pages.
+Acompanhe os testes automatizados da API em tempo real:
 
-## Como executar localmente
+👉 https://kamillaqa.github.io/ConnectOLXQA/
 
-```bash
-npm install
-npm run test:api
-npm run dashboard
-```
+---
 
-Depois abra:
+### 🧪 O que você encontra:
 
-```text
-public/index.html
-```
+- ✔ Status dos testes
+- ✔ Histórico de execuções
+- ✔ Taxa de sucesso
+- ✔ Detalhamento de erros por endpoint
 
-## GitHub Pages
+---
 
-Após o primeiro workflow com sucesso, configure em:
+### 🔎 Última execução
 
-```text
-Settings > Pages
-Source: Deploy from a branch
-Branch: gh-pages
-Folder: /root
-```
-
-## Workflow
-
-O workflow principal está em:
-
-```text
-.github/workflows/api-tests-olx.yml
-```
+Verifique diretamente no dashboard acima para detalhes atualizados.
