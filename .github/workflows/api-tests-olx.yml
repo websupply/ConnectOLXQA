@@ -1,0 +1,48 @@
+name: Run Postman API Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  postman-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Criar pasta de relatórios
+        run: mkdir -p reports public
+
+      - name: Executar testes Postman com Newman
+        run: |
+          npx newman run "QA-Testes-OLX.postman_collection.json" \
+            --reporters cli,json,htmlextra \
+            --reporter-json-export reports/newman-report.json \
+            --reporter-htmlextra-export reports/index.html
+
+      - name: Gerar dashboard HTML
+        if: always()
+        run: npm run dashboard
+
+      - name: Publicar dashboard no GitHub Pages
+        if: always() && github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          force_orphan: true

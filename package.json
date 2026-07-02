@@ -1,0 +1,13 @@
+{
+  "name": "connect-olx-qa-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:api": "newman run QA-Testes-OLX.postman_collection.json --reporters cli,json,htmlextra --reporter-json-export reports/newman-report.json --reporter-htmlextra-export reports/index.html",
+    "dashboard": "node scripts/generate-dashboard.js"
+  },
+  "devDependencies": {
+    "newman": "^6.2.1",
+    "newman-reporter-htmlextra": "^1.23.1"
+  }
+}
