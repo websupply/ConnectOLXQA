@@ -1,0 +1,550 @@
+{
+  "info": {
+    "_postman_id": "82a3a5c0-6b01-4f9b-a766-947ff4227fd1",
+    "name": "[QA] Testes - OLX",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56311481",
+    "_collection_link": "https://go.postman.co/collection/56206216-82a3a5c0-6b01-4f9b-a766-947ff4227fd1?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01 - Smoke",
+      "item": [
+        {
+          "name": "[SMOKE] Envio de lead novo (sucesso)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Tempo de resposta deve ser menor que 3 segundos\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Resposta deve ser JSON válido\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Deve retornar success como true\", function () {\r",
+                  "    pm.expect(response.success).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve retornar mensagem de sucesso\", function () {\r",
+                  "    pm.expect(response.message).to.eql(\"Lead recebido com sucesso\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve retornar responseId\", function () {\r",
+                  "    pm.expect(response.responseId).to.exist;\r",
+                  "    pm.expect(response.responseId).to.not.be.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"responseId deve ser string\", function () {\r",
+                  "    pm.expect(response.responseId).to.be.a(\"string\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Não deve retornar erro\", function () {\r",
+                  "    pm.expect(response.error).to.be.undefined;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"source\": \"financing\",\r\n  \"adId\": \"\", \r\n  \"listId\": \"1596031852\",\r\n  \"linkAd\": \"https://www.olx.com.br/vi/1596031852\",\r\n  \"name\": \"Arthur\",\r\n  \"email\": \"teste@.com\",\r\n  \"phone\": \"11939083713\",\r\n  \"message\": \"O cliente abaixo simulou um financiamento em um dos seus veiculos. Aproveite a oportunidade para entrar em contato!\",\r\n  \"createdAt\": \"2026-04-15T11:37:22.304Z\",\r\n  \"adsInfo\": {\r\n    \"category\": 2020,\r\n    \"subject\": \"Honda Civic Touring 1.5 Turbo CVT 2023\",\r\n    \"body\": \"Garantia: 1 ano de garantia da concessionária Honda Daitan São José dos Campos.\\n\\nFinanciamento: Entrada facilitada em 12x sem juros no cartão de crédito.\\n\\nA Honda Daitan oferece diversas opções de financiamento para este carro. Você pode financiar até 100% do valor, com parcelas que cabem no seu bolso.\\n______________________\\nTroca: A Honda Daitan também aceita trocas. Leve seu carro usado para avaliação e receba uma proposta justa.\\nEntre em contato conosco e agende uma visita: (12)99721-3071 ver número\\nHonda Daitan São José dos Campos-SP\\nAv. Doutor João Guilhermino, 429 - Centro, São José dos Campos - SP, 12210-131\",\r\n    \"type\": \"s\",\r\n    \"price\": 189900,\r\n    \"zipcode\": \"12210131\",\r\n    \"regdate\": \"2023\",\r\n    \"gearbox\": \"2\",\r\n    \"fuel\": \"3\",\r\n    \"cartype\": \"8\",\r\n    \"mileage\": \"27600\",\r\n    \"doors\": \"2\",\r\n    \"end_tag\": 5,\r\n    \"motorpower\": \"9\",\r\n    \"car_steering\": \"2\",\r\n    \"carcolor\": \"2\",\r\n    \"car_features\": \"1|3|4|5|6|7|8|9|11|12|13|14|15|17|18\",\r\n    \"exchange\": \"1\",\r\n    \"owner\": \"1\",\r\n    \"financial\": \"2\",\r\n    \"vehicle_brand\": \"33\",\r\n    \"vehicle_model\": \"3\",\r\n    \"vehicle_version\": \"41\",\r\n    \"vehicle_tag\": \"GHJ2K84\",\r\n    \"owner_manual\": \"1\",\r\n    \"dealership_review\": \"1\",\r\n    \"extra_key\": \"1\"\r\n  },\r\n  \"externalId\": \"f5a6b7c8-d9e0-1234-abcd-901234567890\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.homologacao.websupplyconnect.com/api/Integracoes/olx/56067200000116",
+              "protocol": "https",
+              "host": [
+                "api",
+                "homologacao",
+                "websupplyconnect",
+                "com"
+              ],
+              "path": [
+                "api",
+                "Integracoes",
+                "olx",
+                "56067200000116"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "[SMOKE] Envio de lead novo (sucesso)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"source\": \"financing\",\r\n  \"adId\": \"\", \r\n  \"listId\": \"1596031852\",\r\n  \"linkAd\": \"https://www.olx.com.br/vi/1596031852\",\r\n  \"name\": \"Lead_OLX_{{timestamp}}\",\r\n  \"email\": \"Lead{{timestamp}}@hotmail.com\",\r\n  \"phone\": \"{{timestamp}}\",\r\n  \"message\": \"O cliente abaixo simulou um financiamento em um dos seus veiculos. Aproveite a oportunidade para entrar em contato!\",\r\n  \"createdAt\": \"2026-04-15T11:37:22.304Z\",\r\n  \"adsInfo\": {\r\n    \"category\": 2020,\r\n    \"subject\": \"Honda Civic Touring 1.5 Turbo CVT 2023\",\r\n    \"body\": \"Garantia: 1 ano de garantia da concessionária Honda Daitan São José dos Campos.\\n\\nFinanciamento: Entrada facilitada em 12x sem juros no cartão de crédito.\\n\\nA Honda Daitan oferece diversas opções de financiamento para este carro. Você pode financiar até 100% do valor, com parcelas que cabem no seu bolso.\\n______________________\\nTroca: A Honda Daitan também aceita trocas. Leve seu carro usado para avaliação e receba uma proposta justa.\\nEntre em contato conosco e agende uma visita: (12)99721-3071 ver número\\nHonda Daitan São José dos Campos-SP\\nAv. Doutor João Guilhermino, 429 - Centro, São José dos Campos - SP, 12210-131\",\r\n    \"type\": \"s\",\r\n    \"price\": 189900,\r\n    \"zipcode\": \"12210131\",\r\n    \"regdate\": \"2023\",\r\n    \"gearbox\": \"2\",\r\n    \"fuel\": \"3\",\r\n    \"cartype\": \"8\",\r\n    \"mileage\": \"27600\",\r\n    \"doors\": \"2\",\r\n    \"end_tag\": 5,\r\n    \"motorpower\": \"9\",\r\n    \"car_steering\": \"2\",\r\n    \"carcolor\": \"2\",\r\n    \"car_features\": \"1|3|4|5|6|7|8|9|11|12|13|14|15|17|18\",\r\n    \"exchange\": \"1\",\r\n    \"owner\": \"1\",\r\n    \"financial\": \"2\",\r\n    \"vehicle_brand\": \"33\",\r\n    \"vehicle_model\": \"3\",\r\n    \"vehicle_version\": \"41\",\r\n    \"vehicle_tag\": \"GHJ2K84\",\r\n    \"owner_manual\": \"1\",\r\n    \"dealership_review\": \"1\",\r\n    \"extra_key\": \"1\"\r\n  },\r\n  \"externalId\": \"f5a6b7c8-d9e0-1234-abcd-901234567890\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.homologacao.websupplyconnect.com/api/Integracoes/olx/56067200000116",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "homologacao",
+                    "websupplyconnect",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "Integracoes",
+                    "olx",
+                    "56067200000116"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 29 Jun 2026 14:25:52 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "request-context",
+                  "value": "appId=cid-v1:7d93dc8c-4935-4a9a-a56f-3cc1f303f142"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "ASP.NET"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "nel",
+                  "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                },
+                {
+                  "key": "report-to",
+                  "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nxKMFOfWOWLBUR9tCrBGiBH49ZUAi9zbXxkBwEdEBlLmEUHgDYV1dc0uZDOsYL1C2HexumS6fUcXNnHS21R84IwOHfc%2F%2F5JzcvZjfAtIIYSjMYQ1Gp9OM2p8h3Od%2BUB0480EOhzxb%2FEkmGgZintKKQCjwqHbjQ%3D%3D\"}]}"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1359a5d2be9f18e-GRU"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Lead recebido com sucesso\",\n    \"responseId\": \"50BCD427\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "[SMOKE] Redistribuição de lead com responsável BOT (sucesso)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Tempo de resposta deve ser menor que 3 segundos\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Resposta deve ser JSON válido\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Deve retornar success como true\", function () {\r",
+                  "    pm.expect(response.success).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve retornar mensagem de sucesso\", function () {\r",
+                  "    pm.expect(response.message).to.eql(\"Lead recebido com sucesso\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve retornar responseId\", function () {\r",
+                  "    pm.expect(response.responseId).to.exist;\r",
+                  "    pm.expect(response.responseId).to.not.be.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"responseId deve ser string\", function () {\r",
+                  "    pm.expect(response.responseId).to.be.a(\"string\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Não deve retornar erro\", function () {\r",
+                  "    pm.expect(response.error).to.be.undefined;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"source\": \"financing\",\r\n  \"adId\": \"\", \r\n  \"listId\": \"1596031852\",\r\n  \"linkAd\": \"https://www.olx.com.br/vi/1596031852\",\r\n  \"name\": \"arthur\",\r\n  \"email\": \"arthuras@hotmail.com\",\r\n  \"phone\": \"11939083713\",\r\n  \"message\": \"O cliente abaixo simulou um financiamento em um dos seus veiculos. Aproveite a oportunidade para entrar em contato!\",\r\n  \"createdAt\": \"2026-04-15T11:37:22.304Z\",\r\n  \"adsInfo\": {\r\n    \"category\": 2020,\r\n    \"subject\": \"Honda Civic Touring 1.5 Turbo CVT 2023\",\r\n    \"body\": \"Garantia: 1 ano de garantia da concessionária Honda Daitan São José dos Campos.\\n\\nFinanciamento: Entrada facilitada em 12x sem juros no cartão de crédito.\\n\\nA Honda Daitan oferece diversas opções de financiamento para este carro. Você pode financiar até 100% do valor, com parcelas que cabem no seu bolso.\\n______________________\\nTroca: A Honda Daitan também aceita trocas. Leve seu carro usado para avaliação e receba uma proposta justa.\\nEntre em contato conosco e agende uma visita: (12)99721-3071 ver número\\nHonda Daitan São José dos Campos-SP\\nAv. Doutor João Guilhermino, 429 - Centro, São José dos Campos - SP, 12210-131\",\r\n    \"type\": \"s\",\r\n    \"price\": 189900,\r\n    \"zipcode\": \"12210131\",\r\n    \"regdate\": \"2023\",\r\n    \"gearbox\": \"2\",\r\n    \"fuel\": \"3\",\r\n    \"cartype\": \"8\",\r\n    \"mileage\": \"27600\",\r\n    \"doors\": \"2\",\r\n    \"end_tag\": 5,\r\n    \"motorpower\": \"9\",\r\n    \"car_steering\": \"2\",\r\n    \"carcolor\": \"2\",\r\n    \"car_features\": \"1|3|4|5|6|7|8|9|11|12|13|14|15|17|18\",\r\n    \"exchange\": \"1\",\r\n    \"owner\": \"1\",\r\n    \"financial\": \"2\",\r\n    \"vehicle_brand\": \"33\",\r\n    \"vehicle_model\": \"3\",\r\n    \"vehicle_version\": \"41\",\r\n    \"vehicle_tag\": \"GHJ2K84\",\r\n    \"owner_manual\": \"1\",\r\n    \"dealership_review\": \"1\",\r\n    \"extra_key\": \"1\"\r\n  },\r\n  \"externalId\": \"f5a6b7c8-d9e0-1234-abcd-901234567890\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.homologacao.websupplyconnect.com/api/Integracoes/olx/56067200000116",
+              "protocol": "https",
+              "host": [
+                "api",
+                "homologacao",
+                "websupplyconnect",
+                "com"
+              ],
+              "path": [
+                "api",
+                "Integracoes",
+                "olx",
+                "56067200000116"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "[SMOKE] Redistribuição de lead com responsável BOT",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"source\": \"financing\",\r\n  \"adId\": \"\", \r\n  \"listId\": \"1596031852\",\r\n  \"linkAd\": \"https://www.olx.com.br/vi/1596031852\",\r\n  \"name\": \"arthur\",\r\n  \"email\": \"arthuras1@hotmail.com\",\r\n  \"phone\": \"11939083713\",\r\n  \"message\": \"O cliente abaixo simulou um financiamento em um dos seus veiculos. Aproveite a oportunidade para entrar em contato!\",\r\n  \"createdAt\": \"2026-04-15T11:37:22.304Z\",\r\n  \"adsInfo\": {\r\n    \"category\": 2020,\r\n    \"subject\": \"Honda Civic Touring 1.5 Turbo CVT 2023\",\r\n    \"body\": \"Garantia: 1 ano de garantia da concessionária Honda Daitan São José dos Campos.\\n\\nFinanciamento: Entrada facilitada em 12x sem juros no cartão de crédito.\\n\\nA Honda Daitan oferece diversas opções de financiamento para este carro. Você pode financiar até 100% do valor, com parcelas que cabem no seu bolso.\\n______________________\\nTroca: A Honda Daitan também aceita trocas. Leve seu carro usado para avaliação e receba uma proposta justa.\\nEntre em contato conosco e agende uma visita: (12)99721-3071 ver número\\nHonda Daitan São José dos Campos-SP\\nAv. Doutor João Guilhermino, 429 - Centro, São José dos Campos - SP, 12210-131\",\r\n    \"type\": \"s\",\r\n    \"price\": 189900,\r\n    \"zipcode\": \"12210131\",\r\n    \"regdate\": \"2023\",\r\n    \"gearbox\": \"2\",\r\n    \"fuel\": \"3\",\r\n    \"cartype\": \"8\",\r\n    \"mileage\": \"27600\",\r\n    \"doors\": \"2\",\r\n    \"end_tag\": 5,\r\n    \"motorpower\": \"9\",\r\n    \"car_steering\": \"2\",\r\n    \"carcolor\": \"2\",\r\n    \"car_features\": \"1|3|4|5|6|7|8|9|11|12|13|14|15|17|18\",\r\n    \"exchange\": \"1\",\r\n    \"owner\": \"1\",\r\n    \"financial\": \"2\",\r\n    \"vehicle_brand\": \"33\",\r\n    \"vehicle_model\": \"3\",\r\n    \"vehicle_version\": \"41\",\r\n    \"vehicle_tag\": \"GHJ2K84\",\r\n    \"owner_manual\": \"1\",\r\n    \"dealership_review\": \"1\",\r\n    \"extra_key\": \"1\"\r\n  },\r\n  \"externalId\": \"f5a6b7c8-d9e0-1234-abcd-901234567890\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.homologacao.websupplyconnect.com/api/Integracoes/olx/56067200000116",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "homologacao",
+                    "websupplyconnect",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "Integracoes",
+                    "olx",
+                    "56067200000116"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 29 Jun 2026 19:17:30 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "request-context",
+                  "value": "appId=cid-v1:7d93dc8c-4935-4a9a-a56f-3cc1f303f142"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "ASP.NET"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "nel",
+                  "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                },
+                {
+                  "key": "report-to",
+                  "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=4PyTEQqHEPEMyrnzPPDHQ8y%2FGfsz14mHt7arsrfOm1Nn7N%2BD3JYKaT16%2F9X4rKSqkLZpeXsxdfBnC8mc2dAxbL0zlFdV1EBHI8p8bDFK6khRHJz8hPtd6Ox9GiK6PynQI3fqfZ6W%2F93p4zi0ARZiv24EK98Nbw%3D%3D\"}]}"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a137458e3c68031e-GRU"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Lead recebido com sucesso\",\n    \"responseId\": \"C61A0096\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "[SMOKE] Criação de Lead somente com e-mail (sucesso)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code deve ser 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Tempo de resposta deve ser menor que 3 segundos\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Resposta deve ser JSON válido\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Deve retornar success como true\", function () {\r",
+                  "    pm.expect(response.success).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve retornar mensagem de sucesso\", function () {\r",
+                  "    pm.expect(response.message).to.eql(\"Lead recebido com sucesso\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deve retornar responseId\", function () {\r",
+                  "    pm.expect(response.responseId).to.exist;\r",
+                  "    pm.expect(response.responseId).to.not.be.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"responseId deve ser string\", function () {\r",
+                  "    pm.expect(response.responseId).to.be.a(\"string\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Não deve retornar erro\", function () {\r",
+                  "    pm.expect(response.error).to.be.undefined;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"source\": \"financing\",\r\n  \"adId\": \"\", \r\n  \"listId\": \"1596031852\",\r\n  \"linkAd\": \"https://www.olx.com.br/vi/1596031852\",\r\n  \"name\": \"teste somente e-mail\",\r\n  \"email\": \"arthuras@hotmail.com\",\r\n  \"phone\": \"\",\r\n  \"message\": \"O cliente abaixo simulou um financiamento em um dos seus veiculos. Aproveite a oportunidade para entrar em contato!\",\r\n  \"createdAt\": \"2026-04-15T11:37:22.304Z\",\r\n  \"adsInfo\": {\r\n    \"category\": 2020,\r\n    \"subject\": \"Honda Civic Touring 1.5 Turbo CVT 2023\",\r\n    \"body\": \"Garantia: 1 ano de garantia da concessionária Honda Daitan São José dos Campos.\\n\\nFinanciamento: Entrada facilitada em 12x sem juros no cartão de crédito.\\n\\nA Honda Daitan oferece diversas opções de financiamento para este carro. Você pode financiar até 100% do valor, com parcelas que cabem no seu bolso.\\n______________________\\nTroca: A Honda Daitan também aceita trocas. Leve seu carro usado para avaliação e receba uma proposta justa.\\nEntre em contato conosco e agende uma visita: (12)99721-3071 ver número\\nHonda Daitan São José dos Campos-SP\\nAv. Doutor João Guilhermino, 429 - Centro, São José dos Campos - SP, 12210-131\",\r\n    \"type\": \"s\",\r\n    \"price\": 189900,\r\n    \"zipcode\": \"12210131\",\r\n    \"regdate\": \"2023\",\r\n    \"gearbox\": \"2\",\r\n    \"fuel\": \"3\",\r\n    \"cartype\": \"8\",\r\n    \"mileage\": \"27600\",\r\n    \"doors\": \"2\",\r\n    \"end_tag\": 5,\r\n    \"motorpower\": \"9\",\r\n    \"car_steering\": \"2\",\r\n    \"carcolor\": \"2\",\r\n    \"car_features\": \"1|3|4|5|6|7|8|9|11|12|13|14|15|17|18\",\r\n    \"exchange\": \"1\",\r\n    \"owner\": \"1\",\r\n    \"financial\": \"2\",\r\n    \"vehicle_brand\": \"33\",\r\n    \"vehicle_model\": \"3\",\r\n    \"vehicle_version\": \"41\",\r\n    \"vehicle_tag\": \"GHJ2K84\",\r\n    \"owner_manual\": \"1\",\r\n    \"dealership_review\": \"1\",\r\n    \"extra_key\": \"1\"\r\n  },\r\n  \"externalId\": \"f5a6b7c8-d9e0-1234-abcd-901234567890\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.homologacao.websupplyconnect.com/api/Integracoes/olx/56067200000116",
+              "protocol": "https",
+              "host": [
+                "api",
+                "homologacao",
+                "websupplyconnect",
+                "com"
+              ],
+              "path": [
+                "api",
+                "Integracoes",
+                "olx",
+                "56067200000116"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "[SMOKE] Criação de Lead somente com e-mail (sucesso)",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"source\": \"financing\",\r\n  \"adId\": \"\", \r\n  \"listId\": \"1596031852\",\r\n  \"linkAd\": \"https://www.olx.com.br/vi/1596031852\",\r\n  \"name\": \"teste somente e-mail\",\r\n  \"email\": \"arthuras@hotmail.com\",\r\n  \"phone\": \"\",\r\n  \"message\": \"O cliente abaixo simulou um financiamento em um dos seus veiculos. Aproveite a oportunidade para entrar em contato!\",\r\n  \"createdAt\": \"2026-04-15T11:37:22.304Z\",\r\n  \"adsInfo\": {\r\n    \"category\": 2020,\r\n    \"subject\": \"Honda Civic Touring 1.5 Turbo CVT 2023\",\r\n    \"body\": \"Garantia: 1 ano de garantia da concessionária Honda Daitan São José dos Campos.\\n\\nFinanciamento: Entrada facilitada em 12x sem juros no cartão de crédito.\\n\\nA Honda Daitan oferece diversas opções de financiamento para este carro. Você pode financiar até 100% do valor, com parcelas que cabem no seu bolso.\\n______________________\\nTroca: A Honda Daitan também aceita trocas. Leve seu carro usado para avaliação e receba uma proposta justa.\\nEntre em contato conosco e agende uma visita: (12)99721-3071 ver número\\nHonda Daitan São José dos Campos-SP\\nAv. Doutor João Guilhermino, 429 - Centro, São José dos Campos - SP, 12210-131\",\r\n    \"type\": \"s\",\r\n    \"price\": 189900,\r\n    \"zipcode\": \"12210131\",\r\n    \"regdate\": \"2023\",\r\n    \"gearbox\": \"2\",\r\n    \"fuel\": \"3\",\r\n    \"cartype\": \"8\",\r\n    \"mileage\": \"27600\",\r\n    \"doors\": \"2\",\r\n    \"end_tag\": 5,\r\n    \"motorpower\": \"9\",\r\n    \"car_steering\": \"2\",\r\n    \"carcolor\": \"2\",\r\n    \"car_features\": \"1|3|4|5|6|7|8|9|11|12|13|14|15|17|18\",\r\n    \"exchange\": \"1\",\r\n    \"owner\": \"1\",\r\n    \"financial\": \"2\",\r\n    \"vehicle_brand\": \"33\",\r\n    \"vehicle_model\": \"3\",\r\n    \"vehicle_version\": \"41\",\r\n    \"vehicle_tag\": \"GHJ2K84\",\r\n    \"owner_manual\": \"1\",\r\n    \"dealership_review\": \"1\",\r\n    \"extra_key\": \"1\"\r\n  },\r\n  \"externalId\": \"f5a6b7c8-d9e0-1234-abcd-901234567890\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.homologacao.websupplyconnect.com/api/Integracoes/olx/56067200000116",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "homologacao",
+                    "websupplyconnect",
+                    "com"
+                  ],
+                  "path": [
+                    "api",
+                    "Integracoes",
+                    "olx",
+                    "56067200000116"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Wed, 01 Jul 2026 14:23:56 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "request-context",
+                  "value": "appId=cid-v1:7d93dc8c-4935-4a9a-a56f-3cc1f303f142"
+                },
+                {
+                  "key": "x-powered-by",
+                  "value": "ASP.NET"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "nel",
+                  "value": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}"
+                },
+                {
+                  "key": "report-to",
+                  "value": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9ZfAyjAU%2BVZMzpH97udKrG0LMx1Ht9XC1jPs0bmXI9IJprIGPnKWM1J8mc5cb7wrJy%2BkOBuQZd6ccgpYxFAa9utsYgIz0q%2B1HNgCME2R%2BRfL9AIg67kRKyiFP73TqmINc3xVG2UsGokiJU1I3UCwi9KgZsKgsg%3D%3D\"}]}"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1461247ea4ba519-GRU"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Lead recebido com sucesso\",\n    \"responseId\": \"35517CDD\"\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "pm.environment.set(\"timestamp\", Date.now().toString().slice(-11));"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
