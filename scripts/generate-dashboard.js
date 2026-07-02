@@ -2,10 +2,9 @@ const fs = require('fs');
 const path = require('path');
 
 const reportPath = path.join(process.cwd(), 'reports', 'newman-report.json');
+const historyPrevPath = path.join(process.cwd(), 'reports', 'history-prev.json');
 const publicDir = path.join(process.cwd(), 'public');
-const historyDir = path.join(publicDir, 'history');
 fs.mkdirSync(publicDir, { recursive: true });
-fs.mkdirSync(historyDir, { recursive: true });
 
 let summary = null;
 let executions = [];
@@ -49,6 +48,51 @@ const avgResponseTime = executions.length
   ? Math.round(executions.reduce((sum, e) => sum + (e.response?.responseTime || 0), 0) / executions.length)
   : 0;
 
+// Historico de execucoes: le o historico anterior (baixado do gh-pages antes deste
+// script rodar) e acrescenta a execucao atual, mantendo um limite de registros.
+let history = [];
+if (fs.existsSync(historyPrevPath)) {
+  try {
+    const parsedHistory = JSON.parse(fs.readFileSync(historyPrevPath, 'utf8'));
+    if (Array.isArray(parsedHistory)) history = parsedHistory;
+  } catch (e) {
+    history = [];
+  }
+}
+
+const MAX_HISTORY = 20;
+history.push({
+  timestamp: stats.timestamp,
+  successRate,
+  requestsTotal: stats.requestsTotal,
+  requestsFailed: stats.requestsFailed,
+  assertionsTotal: stats.assertionsTotal,
+  assertionsFailed: stats.assertionsFailed,
+  failuresCount: failures.length,
+  status: failures.length ? 'failed' : 'ok',
+  runUrl: process.env.RUN_URL || null
+});
+if (history.length > MAX_HISTORY) {
+  history = history.slice(history.length - MAX_HISTORY);
+}
+
+const historyRows = [...history].reverse().map((entry) => {
+  const rateTone = entry.successRate === 100 ? 'ok' : entry.successRate >= 80 ? 'warn' : 'bad';
+  const badgeClass = entry.status === 'ok' ? 'passed' : 'failed';
+  const badgeText = entry.status === 'ok' ? 'OK' : 'Falhou';
+  const link = entry.runUrl
+    ? `<a href="${escapeHtml(entry.runUrl)}" target="_blank" rel="noopener">ver execucao</a>`
+    : '<span class="cell-muted">-</span>';
+  return `<tr>
+    <td class="cell-muted">${escapeHtml(entry.timestamp)}</td>
+    <td><strong class="status-code ${rateTone}">${entry.successRate}%</strong></td>
+    <td class="cell-muted">${entry.requestsTotal}</td>
+    <td class="cell-muted">${entry.assertionsFailed}</td>
+    <td><span class="badge ${badgeClass}"><i class="dot"></i>${badgeText}</span></td>
+    <td>${link}</td>
+  </tr>`;
+}).join('\n');
+
 const rows = executions.map((execution) => {
   const itemName = execution.item?.name || 'Sem nome';
   const method = execution.request?.method || '-';
@@ -77,8 +121,8 @@ const failureCards = failures.length
       </div>
     </div>`).join('\n')
   : `<div class="empty-state">
-      <div class="empty-icon">✓</div>
-      <p>Nenhuma falha encontrada nesta execução.</p>
+      <div class="empty-icon">OK</div>
+      <p>Nenhuma falha encontrada nesta execucao.</p>
     </div>`;
 
 const html = `<!DOCTYPE html>
@@ -86,7 +130,7 @@ const html = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dashboard QA · OLX</title>
+<title>Dashboard QA - OLX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -227,6 +271,7 @@ const html = `<!DOCTYPE html>
   .status-code { font-weight: 700; font-variant-numeric: tabular-nums; }
   .status-code.ok { color: var(--ok); }
   .status-code.bad { color: var(--bad); }
+  .status-code.warn { color: var(--warn); }
   .status-code.muted { color: var(--muted); }
 
   .badge {
@@ -260,15 +305,16 @@ const html = `<!DOCTYPE html>
   .empty-icon {
     width: 44px; height: 44px; border-radius: 50%;
     background: var(--ok-soft); color: var(--ok);
-    display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800;
   }
 
   footer {
     text-align: center; color: var(--muted); font-size: 12.5px;
     padding-top: 12px; padding-bottom: 24px;
   }
-  footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
-  footer a:hover { text-decoration: underline; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer a { font-weight: 600; }
 
   @media (max-width: 720px) {
     .hero { grid-template-columns: 1fr; }
@@ -282,8 +328,8 @@ const html = `<!DOCTYPE html>
       <div class="brand">
         <div class="brand-mark">QA</div>
         <div>
-          <h1>Dashboard de Qualidade · OLX</h1>
-          <p>${escapeHtml(collectionName)} &nbsp;·&nbsp; atualizado em ${stats.timestamp}</p>
+          <h1>Dashboard de Qualidade - OLX</h1>
+          <p>${escapeHtml(collectionName)} &nbsp;&middot;&nbsp; atualizado em ${stats.timestamp}</p>
         </div>
       </div>
       <span class="status-chip ${overallStatus.tone}"><i class="dot"></i>${overallStatus.label}</span>
@@ -307,55 +353,65 @@ const html = `<!DOCTYPE html>
 
       <div class="metrics-grid">
         <div class="metric blue">
-          <div class="icon">↻</div>
+          <div class="icon">&#8635;</div>
           <span class="label">Requests executadas</span>
           <strong>${stats.requestsTotal}</strong>
         </div>
         <div class="metric ${stats.requestsFailed ? 'red' : 'green'}">
-          <div class="icon">${stats.requestsFailed ? '✕' : '✓'}</div>
+          <div class="icon">${stats.requestsFailed ? '&times;' : '&#10003;'}</div>
           <span class="label">Requests com falha</span>
           <strong>${stats.requestsFailed}</strong>
         </div>
         <div class="metric blue">
-          <div class="icon">Σ</div>
+          <div class="icon">&Sigma;</div>
           <span class="label">Assertions</span>
           <strong>${stats.assertionsTotal}</strong>
         </div>
         <div class="metric ${stats.assertionsFailed ? 'red' : 'green'}">
-          <div class="icon">${stats.assertionsFailed ? '✕' : '✓'}</div>
+          <div class="icon">${stats.assertionsFailed ? '&times;' : '&#10003;'}</div>
           <span class="label">Assertions falhas</span>
           <strong>${stats.assertionsFailed}</strong>
         </div>
         <div class="metric amber">
-          <div class="icon">⏱</div>
-          <span class="label">Tempo médio</span>
+          <div class="icon">&#9201;</div>
+          <span class="label">Tempo medio</span>
           <strong>${avgResponseTime} ms</strong>
         </div>
       </div>
     </div>
 
     <section class="panel">
-      <h2>Resultado por requisição</h2>
-      <p class="subtitle">${executions.length} cenário(s) executado(s) nesta rodada</p>
+      <h2>Resultado por requisicao</h2>
+      <p class="subtitle">${executions.length} cenario(s) executado(s) nesta rodada</p>
       <table>
         <thead>
-          <tr><th>Cenário</th><th>Método</th><th>Status</th><th>Tempo</th><th>Resultado</th></tr>
+          <tr><th>Cenario</th><th>Metodo</th><th>Status</th><th>Tempo</th><th>Resultado</th></tr>
         </thead>
-        <tbody>${rows || '<tr><td colspan="5" class="cell-muted">Nenhuma execução encontrada.</td></tr>'}</tbody>
+        <tbody>${rows || '<tr><td colspan="5" class="cell-muted">Nenhuma execucao encontrada.</td></tr>'}</tbody>
       </table>
     </section>
 
     <section class="panel">
       <h2>Detalhamento de falhas</h2>
-      <p class="subtitle">${failures.length} ocorrência(s) identificada(s)</p>
+      <p class="subtitle">${failures.length} ocorrencia(s) identificada(s)</p>
       <div style="padding-bottom: 16px;">
         ${failureCards}
       </div>
     </section>
 
+    <section class="panel">
+      <h2>Historico de execucoes</h2>
+      <p class="subtitle">Ultimas ${history.length} execucao(oes) registrada(s)</p>
+      <table>
+        <thead>
+          <tr><th>Data</th><th>Taxa de sucesso</th><th>Requests</th><th>Assertions falhas</th><th>Status</th><th>Link</th></tr>
+        </thead>
+        <tbody>${historyRows || '<tr><td colspan="6" class="cell-muted">Nenhum historico disponivel ainda.</td></tr>'}</tbody>
+      </table>
+    </section>
+
     <footer>
-      <a href="./newman-report.html">Abrir relatório detalhado do Newman →</a>
-      <p style="margin-top:8px;">Gerado automaticamente via GitHub Actions</p>
+      <p>Gerado automaticamente via GitHub Actions</p>
     </footer>
   </div>
 </body>
@@ -363,10 +419,7 @@ const html = `<!DOCTYPE html>
 
 fs.writeFileSync(path.join(publicDir, 'index.html'), html);
 
-const detailedReport = path.join(process.cwd(), 'reports', 'index.html');
-if (fs.existsSync(detailedReport)) {
-  fs.copyFileSync(detailedReport, path.join(publicDir, 'newman-report.html'));
-}
+fs.writeFileSync(path.join(publicDir, 'history.json'), JSON.stringify(history, null, 2));
 
 fs.writeFileSync(path.join(publicDir, '.nojekyll'), '');
 

@@ -3,6 +3,12 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      forcar_email:
+        description: 'Forçar envio do e-mail de teste (mesmo sem falhas)'
+        required: false
+        default: false
+        type: boolean
   schedule:
     # Toda segunda-feira às 08:00 (horário de Brasília, UTC-3)
     - cron: '0 11 * * 1'
@@ -26,17 +32,25 @@ jobs:
       - name: Criar pasta de relatórios
         run: mkdir -p reports public
 
+      - name: Baixar histórico anterior do GitHub Pages
+        if: always()
+        continue-on-error: true
+        run: |
+          git fetch origin gh-pages 2>/dev/null || true
+          git show origin/gh-pages:history.json > reports/history-prev.json 2>/dev/null || echo "[]" > reports/history-prev.json
+
       - name: Executar testes Postman com Newman
         id: newman
         run: |
           npx newman run "QA-Testes-OLX.postman_collection.json" \
-            --reporters cli,json,htmlextra \
-            --reporter-json-export reports/newman-report.json \
-            --reporter-htmlextra-export reports/index.html
+            --reporters cli,json \
+            --reporter-json-export reports/newman-report.json
 
       - name: Gerar dashboard HTML
         if: always()
         run: node scripts/generate-dashboard.js
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Publicar dashboard no GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
@@ -48,14 +62,15 @@ jobs:
           force_orphan: true
 
       - name: Gerar corpo do e-mail
-        if: always() && steps.newman.outcome == 'failure'
+        if: always() && (steps.newman.outcome == 'failure' || github.event.inputs.forcar_email == 'true')
         run: node scripts/email-report.js
         env:
           PAGES_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          FORCE_TEST: ${{ github.event.inputs.forcar_email }}
 
       - name: Enviar e-mail de alerta em caso de falha
-        if: always() && steps.newman.outcome == 'failure'
+        if: always() && (steps.newman.outcome == 'failure' || github.event.inputs.forcar_email == 'true')
         uses: dawidd6/action-send-mail@v17
         with:
           server_address: smtp.gmail.com
@@ -63,7 +78,7 @@ jobs:
           secure: true
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
-          subject: "🔴 Falhas nos testes de API - OLX"
+          subject: ${{ steps.newman.outcome == 'failure' && '🔴 Falhas nos testes de API - OLX' || '🧪 Teste de envio de e-mail - OLX' }}
           to: ${{ secrets.MAIL_TO }}
           from: "QA Bot OLX <alertas.lightplus@gmail.com>"
           html_body: file://reports/email-body.html

@@ -29,6 +29,11 @@ const successRate = stats.assertionsTotal > 0
 
 const pagesUrl = process.env.PAGES_URL || '#';
 const runUrl = process.env.RUN_URL || '#';
+const isForcedTest = process.env.FORCE_TEST === 'true' && failures.length === 0;
+
+const theme = isForcedTest
+  ? { gradient: 'linear-gradient(135deg,#4f46e5,#4338ca)', eyebrow: 'Envio de teste', title: 'Teste de envio de e-mail — OLX', intro: `Este é um envio manual de teste solicitado no GitHub Actions para <strong>${escapeHtml(collectionName)}</strong>. Nenhuma falha real foi detectada nesta execução.` }
+  : { gradient: 'linear-gradient(135deg,#dc2626,#b91c1c)', eyebrow: 'Alerta automático', title: 'Falhas nos testes de API — OLX', intro: `A execução programada de <strong>${escapeHtml(collectionName)}</strong> encontrou falhas.` };
 
 const failureRows = failures.length
   ? failures.map((failure) => `
@@ -53,12 +58,12 @@ const html = `<!DOCTYPE html>
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 18px rgba(20,20,40,.08);">
 
           <tr>
-            <td style="background:linear-gradient(135deg,#dc2626,#b91c1c);padding:28px 32px;">
+            <td style="background:${theme.gradient};padding:28px 32px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <p style="margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);font-weight:700;">Alerta automático</p>
-                    <h1 style="margin:6px 0 0;font-size:22px;color:#ffffff;font-weight:800;">Falhas nos testes de API — OLX</h1>
+                    <p style="margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);font-weight:700;">${theme.eyebrow}</p>
+                    <h1 style="margin:6px 0 0;font-size:22px;color:#ffffff;font-weight:800;">${theme.title}</h1>
                   </td>
                 </tr>
               </table>
@@ -68,7 +73,7 @@ const html = `<!DOCTYPE html>
           <tr>
             <td style="padding:28px 32px 8px;">
               <p style="margin:0 0 4px;font-size:14px;color:#333;">
-                A execução programada de <strong>${escapeHtml(collectionName)}</strong> encontrou falhas.
+                ${theme.intro}
               </p>
               <p style="margin:0;font-size:13px;color:#8a8f9c;">Executado em ${stats.timestamp}</p>
             </td>
