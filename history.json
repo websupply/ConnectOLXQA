@@ -1,0 +1,145 @@
+[
+  {
+    "timestamp": "02/07/2026, 16:11:20",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28615229130"
+  },
+  {
+    "timestamp": "02/07/2026, 16:19:38",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28615681334"
+  },
+  {
+    "timestamp": "02/07/2026, 16:23:53",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28615912766"
+  },
+  {
+    "timestamp": "02/07/2026, 16:31:49",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28616356376"
+  },
+  {
+    "timestamp": "02/07/2026, 16:33:04",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28616421947"
+  },
+  {
+    "timestamp": "02/07/2026, 16:39:32",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28616786928"
+  },
+  {
+    "timestamp": "02/07/2026, 16:47:49",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28617247558"
+  },
+  {
+    "timestamp": "02/07/2026, 16:57:34",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28617775990"
+  },
+  {
+    "timestamp": "02/07/2026, 17:10:48",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28618510030"
+  },
+  {
+    "timestamp": "02/07/2026, 17:13:17",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28618641552"
+  },
+  {
+    "timestamp": "06/07/2026, 11:22:01",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28798445761"
+  },
+  {
+    "timestamp": "13/07/2026, 09:01:07",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/29248248677"
+  },
+  {
+    "timestamp": "20/07/2026, 08:55:27",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/29740240864"
+  }
+]
