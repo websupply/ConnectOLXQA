@@ -1,0 +1,222 @@
+[
+  {
+    "timestamp": "02/07/2026, 16:31:49",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28616356376"
+  },
+  {
+    "timestamp": "02/07/2026, 16:33:04",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28616421947"
+  },
+  {
+    "timestamp": "02/07/2026, 16:39:32",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28616786928"
+  },
+  {
+    "timestamp": "02/07/2026, 16:47:49",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/KamillaQA/ConnectOLXQA/actions/runs/28617247558"
+  },
+  {
+    "timestamp": "02/07/2026, 16:57:34",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28617775990"
+  },
+  {
+    "timestamp": "02/07/2026, 17:10:48",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28618510030"
+  },
+  {
+    "timestamp": "02/07/2026, 17:13:17",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28618641552"
+  },
+  {
+    "timestamp": "06/07/2026, 11:22:01",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/28798445761"
+  },
+  {
+    "timestamp": "13/07/2026, 09:01:07",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/29248248677"
+  },
+  {
+    "timestamp": "20/07/2026, 08:55:27",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/29740240864"
+  },
+  {
+    "timestamp": "27/07/2026, 09:03:22",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/30264299389"
+  },
+  {
+    "timestamp": "03/08/2026, 09:04:43",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/30812038609"
+  },
+  {
+    "timestamp": "10/08/2026, 08:23:04",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/31383233285"
+  },
+  {
+    "timestamp": "17/08/2026, 08:06:13",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/32023268506"
+  },
+  {
+    "timestamp": "24/08/2026, 08:08:14",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/32720261762"
+  },
+  {
+    "timestamp": "31/08/2026, 08:05:10",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/33385291136"
+  },
+  {
+    "timestamp": "07/09/2026, 08:05:17",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/34114750482"
+  },
+  {
+    "timestamp": "14/09/2026, 08:05:41",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/34836391088"
+  },
+  {
+    "timestamp": "21/09/2026, 08:05:20",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/35592138985"
+  },
+  {
+    "timestamp": "28/09/2026, 08:05:41",
+    "successRate": 100,
+    "requestsTotal": 3,
+    "requestsFailed": 0,
+    "assertionsTotal": 24,
+    "assertionsFailed": 0,
+    "failuresCount": 0,
+    "status": "ok",
+    "runUrl": "https://github.com/websupply/ConnectOLXQA/actions/runs/36413537866"
+  }
+]
